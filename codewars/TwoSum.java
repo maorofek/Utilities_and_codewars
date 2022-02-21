@@ -1,0 +1,38 @@
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class TwoSum {
+
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3};
+        int target = 4;
+        System.out.println(Arrays.toString(twoSum(numbers, target)));
+    }
+
+    public static int[] twoSum(int[] numbers, int target) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < numbers.length; i++) {
+            map.putIfAbsent(numbers[i], i);
+        }
+        for (int i = 0; i < numbers.length; i++) {
+            if (map.containsKey(target - numbers[i])) {
+                return new int[]{map.get(target - numbers[i]), i};
+            }
+        }
+        return null;
+    }
+}
+//String eli = the most noob I ever met sol
+//public static int[] twoSum(int[] numbers, int target) {
+//    HashMap<Integer, Integer> map = new HashMap<>();
+//    int remaining;
+//    for (int i = 0; i < numbers.length; i++) {
+//        remaining = target - numbers[i];
+//        if (map.containsKey(remaining)) {
+//            return new int[]{i, map.get(remaining)};
+//        }
+//        map.put(numbers[i], i);
+//    }
+//    return null;
+//}
+
