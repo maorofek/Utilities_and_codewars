@@ -1,4 +1,4 @@
-public class EliShtok {
+public class KMPSearch {
 
     void KMPSearch(String pat, String txt) {
         int M = pat.length();
@@ -72,7 +72,7 @@ public class EliShtok {
     public static void main(String args[]) {
         String txt = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         String pat = "BABBABCAB";
-        new EliShtok().KMPSearch(pat, txt);
+        new KMPSearch().KMPSearch(pat, txt);
 
     }
 }
