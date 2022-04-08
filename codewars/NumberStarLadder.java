@@ -28,12 +28,13 @@ public class NumberStarLadder {
 //    public static String pattern2(int n) {
 //        return rangeClosed(1, n).mapToObj(i -> "1" + "*".repeat(i - 1) + (i > 1 ? i : "")).collect(joining("\n"));
 //    }
-    String repeat(String s, int time) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < time; i++) {
-            sb.append(s);
-        }
-        return sb.toString();
-    }
+//
+//    public static String repeat(String s, int time) {
+//        StringBuilder sb = new StringBuilder();
+//        for (int i = 0; i < time; i++) {
+//            sb.append(s);
+//        }
+//        return sb.toString();
+//    }
 
 }
