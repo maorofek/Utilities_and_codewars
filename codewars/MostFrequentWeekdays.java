@@ -1,9 +1,6 @@
-import java.time.*;
+import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import static java.util.Locale.UK;
 
@@ -12,7 +9,6 @@ public class MostFrequentWeekdays {
     public static void main(String[] args) {
 //        int daysInYear = Year.of(2000).length();
         System.out.println(Arrays.toString(mostFrequentDays(1984)));
-
     }
 
     public static String[] mostFrequentDays(int year) {
@@ -41,5 +37,4 @@ public class MostFrequentWeekdays {
             return new String[]{startedDay, lastDay};
         }
     }
-
 }
