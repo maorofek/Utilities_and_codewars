@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class NumberZooPatrol {
 
     public static void main(String[] args) {
@@ -10,11 +13,13 @@ public class NumberZooPatrol {
         int max = numbers.length + 1;
         int missingNumber = 0;
 
-        boolean[] bools = new boolean[max + 1];
+        Boolean[] bools = new Boolean[max + 1];
 
         for (int i : numbers) {
             bools[i] = true;
         }
+
+        //Arrays.stream(bools).forEach(bool -> bool = false);
 
         for (int i = 1; i < bools.length; i++) {
             if (!bools[i]) {
