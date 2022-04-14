@@ -1,6 +1,7 @@
-import java.util.UUID;
+public class Multiplesof3or5 {
 
-public class SSS {
     public static void main(String[] args) {
+
+
     }
 }
