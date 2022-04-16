@@ -1,10 +1,9 @@
 public class CanYouReachThrExit {
 
     public static void main(String[] args) {
-        String a =
-                     ".W.\n" +
-                     ".W.\n" +
-                     "...";
+        String a =  ".W.\n" +
+                    ".W.\n" +
+                    "...";
 
         String b =  ".W.\n" +
                     ".W.\n" +
@@ -23,10 +22,10 @@ public class CanYouReachThrExit {
                     "......\n" +
                     ".....W\n" +
                     "....W.";
-        pathFinder(a);
-        pathFinder(b);
-        pathFinder(c);
-        pathFinder(d);
+        System.out.println(pathFinder(a));
+        System.out.println(pathFinder(b));
+        System.out.println(pathFinder(c));
+        System.out.println(pathFinder(d));
 
     }
 

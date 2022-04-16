@@ -8,7 +8,7 @@ public class HowGoodAreReally {
         System.out.println(betterThanAverage(new int[]{12, 23, 34, 45, 56, 67, 78, 89, 90}, 69));   //true
         System.out.println(betterThanAverage(new int[]{100, 90}, 11));  //false
     }
-    
+
     public static boolean betterThanAverage(int[] classPoints, int yourPoints) {
         int avg = (Arrays.stream(classPoints).sum()) / classPoints.length;
         return yourPoints > avg;
