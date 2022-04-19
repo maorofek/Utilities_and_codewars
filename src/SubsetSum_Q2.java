@@ -4,7 +4,6 @@ import java.util.stream.Collectors;
 
 public class SubsetSum_Q2 {
 
-
     static boolean isSubsetSumForAllNumbers(int[] set, int sum) {
         int bigNumber = (int) 1E6; // assume very big number -> at least as big as abs(min(set))
         List<Integer> transformedSet = Arrays.stream(set).map(x -> x + bigNumber).boxed().collect(Collectors.toList());
