@@ -6,7 +6,6 @@ public class BreakCamelCase {
         System.out.println(camelCase2("itIsPossible"));
     }
 
-    //TODO
     public static String camelCase(String input) {
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < input.length(); i++) {

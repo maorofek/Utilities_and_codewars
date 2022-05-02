@@ -1,0 +1,212 @@
+1. Overview
+In this tutorial, we'll talk about the performance of different collections from the Java Collection API. When we talk about collections, we usually think about the List, Map, and Set data structures, as well as their common implementations.
+
+First, we'll look at Big-O complexity insights for common operations. Then we'll show the real numbers of some collection operations' running times.
+
+2. Time Complexity
+Usually, when we talk about time complexity, we refer to Big-O notation. Simply put, the notation describes how the time to perform the algorithm grows with the input size.
+
+Useful write-ups are available to learn more about Big-O notation theory and practical Java examples.
+
+3. List
+Let's start with a simple list, which is an ordered collection.
+
+Here we'll look at a performance overview of the ArrayList, LinkedList, and CopyOnWriteArrayList implementations.
+
+3.1. ArrayList
+The ArrayList in Java is backed by an array. This helps to understand the internal logic of its implementation. A more comprehensive guide for the ArrayList is available in this article.
+
+So let's focus first on the time complexity of the common operations at a high level:
+
+add() – takes O(1) time; however, worst-case scenario, when a new array has to be created and all the elements copied to it, it's O(n)
+add(index, element) – on average runs in O(n) time
+get() – is always a constant time O(1) operation
+remove() – runs in linear O(n) time. We have to iterate the entire array to find the element qualifying for removal.
+indexOf() – also runs in linear time. It iterates through the internal array and checks each element one by one, so the time complexity for this operation always requires O(n) time.
+contains() – implementation is based on indexOf(), so it'll also run in O(n) time.
+3.2. CopyOnWriteArrayList
+This implementation of the List interface is beneficial when working with multi-threaded applications. It's thread-safe and explained well in this guide here.
+
+Here's the Big-O notation performance overview for CopyOnWriteArrayList:
+
+add() – depends on the position we add value, so the complexity is O(n)
+get() – is O(1) constant time operation
+remove() – takes O(n) time
+contains() – likewise, the complexity is O(n)
+As we can see, using this collection is very expensive because of the performance characteristics of the add() method.
+
+3.3. LinkedList
+LinkedList is a linear data structure that consists of nodes holding a data field and a reference to another node. For more LinkedList features and capabilities, have a look at this article here.
+
+Let's present the average estimate of time we need to perform some basic operations:
+
+add() – appends an element to the end of the list. It only updates a tail, and therefore, it's O(1) constant-time complexity.
+add(index, element) – on average runs in O(n) time
+get() – searching for an element takes O(n) time.
+remove(element) – to remove an element, we first need to find it. This operation is O(n).
+remove(index) – to remove an element by index, we first need to follow the links from the beginning; therefore, the overall complexity is O(n).
+contains() – also has O(n) time complexity
+3.4. Warming Up the JVM
+Now, to prove the theory, let's play with actual data. To be more precise, we'll present the JMH (Java Microbenchmark Harness) test results of the most common collection operations.
+
+If we're not familiar with the JMH tool, we can check out this useful guide.
+
+First, we'll present the main parameters of our benchmark tests:
+
+@BenchmarkMode(Mode.AverageTime)
+@OutputTimeUnit(TimeUnit.MICROSECONDS)
+@Warmup(iterations = 10)
+public class ArrayListBenchmark {
+}
+Then we'll set the warm-up iterations number to 10. Note that we also want to see the average running time of our results displayed in microseconds.
+
+3.5. Benchmark Tests
+Now it's time to run our performance tests. First, we'll start with the ArrayList:
+
+@State(Scope.Thread)
+public static class MyState {
+
+    List<Employee> employeeList = new ArrayList<>();
+
+    long iterations = 100000;
+
+    Employee employee = new Employee(100L, "Harry");
+
+    int employeeIndex = -1;
+
+    @Setup(Level.Trial)
+    public void setUp() {
+        for (long i = 0; i < iterations; i++) {
+            employeeList.add(new Employee(i, "John"));
+        }
+
+        employeeList.add(employee);
+        employeeIndex = employeeList.indexOf(employee);
+    }
+}
+Inside our ArrayListBenchmark, we add the State class to hold the initial data.
+
+Here, we create an ArrayList of Employee objects. Then we initialize it with 100.000 items inside of the setUp() method. The @State indicates that the @Benchmark tests have full access to the variables declared in it within the same thread.
+
+Finally, it's time to add the benchmark tests for the add(), contains(), indexOf(), remove(), and get() methods:
+
+@Benchmark
+public void testAdd(ArrayListBenchmark.MyState state) {
+    state.employeeList.add(new Employee(state.iterations + 1, "John"));
+}
+
+@Benchmark
+public void testAddAt(ArrayListBenchmark.MyState state) {
+    state.employeeList.add((int) (state.iterations), new Employee(state.iterations, "John"));
+}
+
+@Benchmark
+public boolean testContains(ArrayListBenchmark.MyState state) {
+    return state.employeeList.contains(state.employee);
+}
+
+@Benchmark
+public int testIndexOf(ArrayListBenchmark.MyState state) {
+    return state.employeeList.indexOf(state.employee);
+}
+
+@Benchmark
+public Employee testGet(ArrayListBenchmark.MyState state) {
+    return state.employeeList.get(state.employeeIndex);
+}
+
+@Benchmark
+public boolean testRemove(ArrayListBenchmark.MyState state) {
+    return state.employeeList.remove(state.employee);
+}
+3.6. Test Results
+All of the results are presented in microseconds:
+
+Benchmark                        Mode  Cnt     Score     Error
+ArrayListBenchmark.testAdd       avgt   20     2.296 ±   0.007
+ArrayListBenchmark.testAddAt     avgt   20   101.092 ±  14.145
+ArrayListBenchmark.testContains  avgt   20   709.404 ±  64.331
+ArrayListBenchmark.testGet       avgt   20     0.007 ±   0.001
+ArrayListBenchmark.testIndexOf   avgt   20   717.158 ±  58.782
+ArrayListBenchmark.testRemove    avgt   20   624.856 ±  51.101
+From the results, we learn that the testContains() and testIndexOf() methods run at approximately the same time. We can also clearly see the huge difference between the testAdd() and testGet() method scores from the rest of the results. Adding an element takes 2.296 microseconds, and getting one is a 0.007-microsecond operation.
+
+Furthermore, searching or removing an element costs roughly 700 microseconds. These numbers are proof of the theoretical part, where we learned that add(), and get() have O(1) time complexity, and the other methods are O(n). n=10.000 elements in our example.
+
+Similarly, we can write the same tests for the CopyOnWriteArrayList collection. All we need to do is replace the ArrayList in employeeList with the CopyOnWriteArrayList instance.
+
+Here are the results of the benchmark test:
+
+Benchmark                          Mode  Cnt    Score     Error
+CopyOnWriteBenchmark.testAdd       avgt   20  652.189 ±  36.641
+CopyOnWriteBenchmark.testAddAt     avgt   20  897.258 ±  35.363
+CopyOnWriteBenchmark.testContains  avgt   20  537.098 ±  54.235
+CopyOnWriteBenchmark.testGet       avgt   20    0.006 ±   0.001
+CopyOnWriteBenchmark.testIndexOf   avgt   20  547.207 ±  48.904
+CopyOnWriteBenchmark.testRemove    avgt   20  648.162 ± 138.379
+Here, again, the numbers confirm the theory. As we can see, testGet() on average runs in 0.006 ms, which we can consider as O(1). Comparing to ArrayList, we also notice the significant difference between the testAdd() method results, as here we have O(n) complexity for the add() method versus ArrayList's O(1).
+
+We can clearly see the linear growth of time, as the performance numbers are 878.166 compared to 0.051.
+
+Now it's LinkedList time:
+
+Benchmark        Cnt     Score       Error
+testAdd          20     2.580        ± 0.003
+testContains     20     1808.102     ± 68.155
+testGet          20     1561.831     ± 70.876
+testRemove       20     0.006        ± 0.001
+We can see from the scores that adding and removing elements in LinkedList is quite fast.
+
+Furthermore, there's a significant performance gap between add/remove and get/contains operations.
+
+4. Map
+With the latest JDK versions, we're witnessing significant performance improvement for Map implementations, such as replacing the LinkedList with the balanced tree node structure in HashMap, and LinkedHashMap internal implementations. This shortens the element lookup worst-case scenario from O(n) to O(log(n)) time during the HashMap collisions.
+
+However, if we implement proper .equals() and .hashcode() methods, collisions are unlikely.
+
+To learn more about HashMap collisions, check out this write-up. From the write-up, we'll also learn that storing and retrieving elements from the HashMap takes constant O(1) time.
+
+4.1. Testing O(1) Operations
+Now let's see some actual numbers. First, the HashMap:
+
+Benchmark                         Mode  Cnt  Score   Error
+HashMapBenchmark.testContainsKey  avgt   20  0.009 ± 0.002
+HashMapBenchmark.testGet          avgt   20  0.011 ± 0.001
+HashMapBenchmark.testPut          avgt   20  0.019 ± 0.002
+HashMapBenchmark.testRemove       avgt   20  0.010 ± 0.001
+As we can see, the numbers prove the O(1) constant time for running the methods listed above. Now let's compare the HashMap test scores with the other Map instance scores.
+
+For all of the listed methods, we have O(1) for HashMap, LinkedHashMap, IdentityHashMap, WeakHashMap, EnumMap and ConcurrentHashMap.
+
+Let's present the results of the remaining test scores in the form of a table:
+
+Benchmark      LinkedHashMap  IdentityHashMap  WeakHashMap  ConcurrentHashMap
+testContainsKey    0.008         0.009          0.014          0.011
+testGet            0.011         0.109          0.019          0.012
+testPut            0.020         0.013          0.020          0.031
+testRemove         0.011         0.115          0.021          0.019
+From the output numbers, we can confirm the claims of O(1) time complexity.
+
+4.2. Testing O(log(n)) Operations
+For the tree structure TreeMap and ConcurrentSkipListMap, the put(), get(), remove(), and containsKey() operations time is O(log(n)).
+
+Here we want to make sure that our performance tests will run approximately in logarithmic time. For this reason, we'll initialize the maps with n=1000, 10,000, 100,000, 1,000,000 items continuously.
+
+In this case, we're interested in the total time of execution:
+
+items count (n)         1000      10,000     100,000   1,000,000
+all tests total score   00:03:17  00:03:17   00:03:30  00:05:27
+When n=1000, we have a total of 00:03:17 milliseconds execution time. At n=10,000, the time is almost unchanged, 00:03:18 ms. n=100,000 has a minor increase at 00:03:30. And finally, when n=1,000,000, the run completes in 00:05:27 ms.
+
+After comparing the runtime numbers with the log(n) function of each n, we can confirm that the correlation of both functions matches.
+
+5. Set
+Generally, Set is a collection of unique elements. Here we're going to examine the HashSet, LinkedHashSet, EnumSet, TreeSet, CopyOnWriteArraySet, and ConcurrentSkipListSet implementations of the Set interface.
+
+To better understand the internals of the HashSet, this guide is here to help.
+
+Now let's jump ahead to present the time complexity numbers. For HashSet, LinkedHashSet, and EnumSet, the add(), remove() and contains() operations cost constant O(1) time thanks to the internal HashMap implementation.
+
+Likewise, the TreeSet has O(log(n)) time complexity for the operations listed in the previous group. This is because of the TreeMap implementation. The time complexity for ConcurrentSkipListSet is also O(log(n)) time, as it's based in skip list data structure.
+
+For CopyOnWriteArraySet, the add(), remove() and contains() methods have O(n) average time complexity.
