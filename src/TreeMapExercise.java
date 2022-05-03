@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
 
-public class EliBullshit {
+public class TreeMapExercise {
 
 
     public static void main(String[] args) throws IOException {
@@ -21,7 +21,7 @@ public class EliBullshit {
     public static MyDataStructure readFile(File file) throws IOException {
         long start = System.currentTimeMillis();
 
-        MyDataStructure myDataStructure = new ElazarAndHisBullshit();
+        MyDataStructure myDataStructure = new SelectedDataStructure();
 
 
         //O(n) when n is the number of lines
@@ -63,7 +63,7 @@ interface MyDataStructure {
     List<Integer> getAllRows(String word);
 }
 
-class ElazarAndHisBullshit implements MyDataStructure {
+class SelectedDataStructure implements MyDataStructure {
 
     SortedMap<String, List<Integer>> map = new TreeMap<>();
 
