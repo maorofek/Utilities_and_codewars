@@ -1,3 +1,4 @@
+import java.lang.module.ModuleDescriptor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,7 +8,8 @@ import java.util.stream.Collectors;
 public class Program {
 
     public static void main(String[] args) {
-        //Idan shtok
+
+
         Person p1 = new Person("Maor", 27);
         Person p2 = new Person("Naor", 15);
         Person p3 = new Person("Elazar", 25);
@@ -18,7 +20,7 @@ public class Program {
         Person p8 = new Person("Yarden", 19);
         Person p9 = new Person("Shlomi", 22);
         Person p10 = new Person("Shlomo", 20);
-        Person p11 = new Person("Danny", 15);
+        Person p11 = Person.PersonBuilder.aPerson().name("Maor").age(28).build(); //builder used
 
         HashMap<Person, Integer> map = new HashMap<>();
         List<Person> humans = new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
