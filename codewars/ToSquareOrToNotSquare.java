@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class FilterUnusedDigits {
+public class ToSquareOrToNotSquare {
 
     public static void main(String[] args) {
         int[] input = new int[]{4, 3, 9, 7, 2, 1};       //  int[] expected = new int[] { 2, 9, 3, 49, 4, 1 };

@@ -60,7 +60,7 @@ public class Streams {
                 .forEach(out::println);
 
         out.println("\n8. Stream rows from text file, sort, filter, and print");
-        Stream<String> bands = Files.lines(Paths.get(path + "/bands.txt"));
+        Stream<String> bands = Files.lines(Paths.get(path + "/KMP/bands.txt"));
         bands
                 .sorted()
                 .filter(x -> x.length() > 13)
@@ -68,13 +68,13 @@ public class Streams {
         bands.close();
 
         out.println("\n9. Stream rows from text file and save to List");
-        List<String> bands2 = Files.lines(Paths.get(path + "/bands.txt"))
+        List<String> bands2 = Files.lines(Paths.get(path + "/KMP/bands.txt"))
                 .filter(x -> x.contains("jit"))
                 .collect(Collectors.toList());
         bands2.forEach(out::println);
 
         out.println("\n10. Stream rows from CSV file and count");
-        Stream<String> rows1 = Files.lines(Paths.get(path + "/data.txt"));
+        Stream<String> rows1 = Files.lines(Paths.get(path + "/KMP/data.txt"));
         int rowCount = (int) rows1
                 .map(x -> x.split(","))
                 .filter(x -> x.length == 3)
@@ -83,7 +83,7 @@ public class Streams {
         rows1.close();
 
         out.println("\n11. Stream rows from CSV file, parse data from rows");
-        Stream<String> rows2 = Files.lines(Paths.get(path + "/data.txt"));
+        Stream<String> rows2 = Files.lines(Paths.get(path + "/KMP/data.txt"));
         rows2
                 .map(x -> x.split(","))
                 .filter(x -> x.length == 3)
@@ -92,7 +92,7 @@ public class Streams {
         rows2.close();
 
         out.println("\n12. Stream rows from CSV file, store fields in HashMap");
-        Stream<String> rows3 = Files.lines(Paths.get(path + "/data.txt"));
+        Stream<String> rows3 = Files.lines(Paths.get(path + "/KMP/data.txt"));
         Map<String, Integer> map = rows3
                 .map(x -> x.split(","))
                 .filter(x -> x.length == 3)
