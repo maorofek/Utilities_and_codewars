@@ -10,9 +10,6 @@ public class ValidBraces {
     }
 
     public boolean isValid(String braces) {
-        String tmp1 = "{}";
-        String tmp2 = "()";
-        String tmp3 = "[]";
         while (braces.contains("{}") || braces.contains("[]") || braces.contains("()")) {
             braces = braces.replace("{}", "").replace("[]", "").replace("()", "");
         }

@@ -20,7 +20,6 @@ public class JosephusPermutation {
         List<Object> resultList = new ArrayList<>();
         currentLocation += k;
         return resultList;
-        //3, 6, 2, 7, 5, 1, 4}
     }
 
     public static <T> List<T> josephusPermutation(final List<T> items, final int k) {
