@@ -11,8 +11,6 @@ public class TwoToOne {
     }
 
     public static String longest(String s1, String s2) {
-        String newString;
-        // get two strings and return one sorted string in alphabetical order of the two strings  with no duplicates
         return (s1 + s2)
                 .chars()
                 .distinct()
