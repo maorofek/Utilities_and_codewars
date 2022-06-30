@@ -1,6 +1,5 @@
 public class PathFinder2 {
     //Path Finder #2: shortest path exercise
-
     public static void main(String[] args) {
         String a = ".W.\n" +
                 ".W.\n" +
@@ -30,6 +29,7 @@ public class PathFinder2 {
         System.out.println(pathFinder(d));//-1
     }
 
+    //TODO
     public static int pathFinder(String maze) {
 
         return -1;
