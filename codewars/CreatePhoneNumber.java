@@ -4,7 +4,6 @@ public class CreatePhoneNumber {
         System.out.println(createPhoneNumber(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 0}));
     }
 
-    //TODO
     public static String createPhoneNumber(int[] numbers) {
         String result = "";
         for (int number : numbers) {
