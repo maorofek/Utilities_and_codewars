@@ -1,3 +1,5 @@
+import java.util.stream.IntStream;
+
 public class PyramidSlideDown {
 
     public static void main(String[] args) {
@@ -21,7 +23,21 @@ public class PyramidSlideDown {
     }
 
     public static int longestSlideDown(int[][] pyramid) {
+        for (int i = pyramid.length - 1; i >= 1; i--)
+            for (int j = 0; j < i; j++)
+                pyramid[i - 1][j] += Math.max(pyramid[i][j], pyramid[i][j + 1]);
+        return pyramid[0][0];
+    }
 
-        return 0;
+    //Another solution
+    public static int longestSlideDown2(int[][] pyramid) {
+        IntStream
+                .iterate(pyramid.length - 2, i -> i - 1)
+                .limit(pyramid.length - 1)
+                .forEach(i -> IntStream
+                        .rangeClosed(0, i)
+                        .forEach(j ->
+                                pyramid[i][j] += Math.max(pyramid[i + 1][j], pyramid[i + 1][j + 1])));
+        return pyramid[0][0];
     }
 }
