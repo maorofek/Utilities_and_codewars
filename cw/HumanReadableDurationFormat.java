@@ -17,26 +17,20 @@ public class HumanReadableDurationFormat {
 
     //TODO
     public static String formatDuration(int seconds) {
-        List<String> list = new ArrayList<>();
+        int sec = seconds % 60;
+        int min = (seconds / 60) % 60;
+        int hours = (seconds / 60) / 60;
 
-        if (seconds <= 0) {
-            return "now";
+        String strSec = (sec < 10) ? "0" + sec : Integer.toString(sec);
+        String strmin = (min < 10) ? "0" + min : Integer.toString(min);
+        String strHours = (hours < 10) ? "0" + hours : Integer.toString(hours);
+
+        if (hours == 0) {
+            return strmin + "minute  " + strSec + "seconds";
+        } else if (hours == 1) {
+            return strHours + "hour " + strmin + "minute  " + strSec + "seconds";
+        } else {
+            return strHours + "hour " + strmin + "minute  " + strSec + "seconds";
         }
-
-        Map<Integer, String> map = new HashMap<>();
-        map.put(31536000, " year");
-        map.put(86400, " day");
-        map.put(3600, " hour");
-        map.put(60, " minute");
-        map.put(1, " second");
-
-        for (Map.Entry<Integer, String> entry : map.entrySet()) {
-            if (seconds >= entry.getKey()) {
-                int n = seconds / entry.getKey();
-                list.add(n + entry.getValue() + (n > 1 ? "s" : ""));
-                seconds -= n * entry.getKey();
-            }
-        }
-        return String.join(", ", list).replaceAll(", (?!.+,)", " and ");
     }
 }
