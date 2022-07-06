@@ -13,7 +13,6 @@ public class HumanReadableDurationFormat {
         System.out.println(formatDuration(366200));
     }
 
-    //TODO
     public static String formatDuration(int seconds) {
         if (seconds == 0) return "now";
         HashMap<String, Integer> map = new LinkedHashMap<>();

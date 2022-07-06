@@ -14,39 +14,7 @@ public class LengthOfMissingArray {
     }
 
     //TODO
-    //doesn't always start from length = 1
     public static int getLengthOfMissingArray(Object[][] arrayOfArrays) {
-        // System.out.println(Arrays.deepToString(arrayOfArrays));
-        int smallestSize = 99999;
-        int numberOfArrays = 0;
-        numberOfArrays = arrayOfArrays == null ? 0 : arrayOfArrays.length;
-        boolean[] bool = new boolean[numberOfArrays + 1];
-
-        if (numberOfArrays == 0) {
-            return 0;
-        }
-        for (Object[] array : arrayOfArrays) {
-            if (array == null) {
-                return 0;
-            }
-            if (array.length == 0) {
-                smallestSize = 0;
-            }
-            if (array.length < smallestSize) {
-                smallestSize = array.length;
-            }
-        }
-        for (Object[] array : arrayOfArrays) {
-            bool[array.length - smallestSize] = true;
-        }
-        for (int i = 0; i < bool.length; i++) {
-            if (!bool[i] && i == 0) {
-                return i;
-            }
-            if (!bool[i]) {
-                return i + smallestSize;
-            }
-        }
         return 0;
     }
 }
