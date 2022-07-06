@@ -10,8 +10,8 @@ public class MergedStringChecker {
     //TODO
     public static boolean isMerge(String s, String part1, String part2) {
         if (s.length() != part1.length() + part2.length()) return false;
-        if (s.length() == 0) return true;
+        return s.length() == 0;
 
-        return false;
+
     }
 }

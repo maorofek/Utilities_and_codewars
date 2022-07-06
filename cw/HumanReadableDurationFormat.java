@@ -1,7 +1,4 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class HumanReadableDurationFormat {
 
@@ -17,20 +14,27 @@ public class HumanReadableDurationFormat {
 
     //TODO
     public static String formatDuration(int seconds) {
-        int sec = seconds % 60;
-        int min = (seconds / 60) % 60;
-        int hours = (seconds / 60) / 60;
+        if (seconds == 0) return "now";
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("year", 31536000 / 356 / 24 / 60 / 60);
+        map.put("month", (2592000 / 30 / 24 / 60 / 60));
+        map.put("day", (86400 / 24 / 60 / 60));
+        map.put("hour", (seconds / 60) / 60);
+        map.put("minute", (seconds / 60) % 60);
+        map.put("second", seconds % 60);
+        StringBuilder sb = new StringBuilder();
+        for (String key : map.keySet()) {
+            if (map.get(key) > 0) {
+                sb.append(map.get(key)).append(" ").append(key).append(map.get(key) > 1 ? "s" : "");
+            }
+            if (key.equals("year") || key.equals("month") || key.equals("day") || key.equals("hour")) {
+                sb.append(", ");
+            }
+            if (key.equals("min") || map.get("second") > 0 && !key.equals("second")) {
+                sb.append(" and");
+            }
 
-        String strSec = (sec < 10) ? "0" + sec : Integer.toString(sec);
-        String strmin = (min < 10) ? "0" + min : Integer.toString(min);
-        String strHours = (hours < 10) ? "0" + hours : Integer.toString(hours);
-
-        if (hours == 0) {
-            return strmin + "minute  " + strSec + "seconds";
-        } else if (hours == 1) {
-            return strHours + "hour " + strmin + "minute  " + strSec + "seconds";
-        } else {
-            return strHours + "hour " + strmin + "minute  " + strSec + "seconds";
         }
+        return sb.toString();
     }
 }
