@@ -12,7 +12,9 @@ public class RangeExtraction {
             sb.append(arr[i]);
             secondIndex = i;
 
-            while (secondIndex < arr.length - 1 && arr[secondIndex] + 1 == arr[secondIndex + 1]) secondIndex++;
+            while (secondIndex < arr.length - 1 && arr[secondIndex] + 1 == arr[secondIndex + 1]) {
+                secondIndex++;
+            }
 
             if (i < secondIndex - 1) {
                 i = secondIndex;
