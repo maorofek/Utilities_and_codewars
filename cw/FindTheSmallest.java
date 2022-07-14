@@ -4,6 +4,11 @@ public class FindTheSmallest {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(smallest(261235))); //"[126235, 2, 0]");
+        System.out.println(Arrays.toString(smallest(209917))); //"[29917, 0, 1]");
+        System.out.println(Arrays.toString(smallest(285365))); //"[238565, 3, 1]");
+        System.out.println(Arrays.toString(smallest(269045))); //"[26945, 3, 0]");
+        System.out.println(Arrays.toString(smallest(296837))); //"[239687, 4, 1]");
+
 
     }
 
@@ -21,7 +26,7 @@ public class FindTheSmallest {
         String tmpStr = Long.toString(newNumber);
         long tmpSmallestNumber = newNumber * 10 + smallestNumber;
         int newIndex = 0;
-        for (int i = 1; i <= tmpStr.length() - 1; i++) {
+        for (int i = 1; i <= tmpStr.length(); i++) {
             long cut = (long) (newNumber % (Math.pow(10, i)));
             long x = (long) ((long) ((int) (newNumber / (Math.pow(10, i))) * 10 + smallestNumber) * (Math.pow(10, i)) + cut); //TODO
             if (x < tmpSmallestNumber) {
@@ -29,7 +34,7 @@ public class FindTheSmallest {
                 newIndex = tmpStr.length() - i;
             }
         }
-        return new long[]{tmpSmallestNumber, smallestIndex,newIndex-1};
+        return new long[]{tmpSmallestNumber, smallestIndex,newIndex};
     }
 
     private static long removeTheDigitFromTheNumber(long n, long smallestNumber, int indexSmallest) {
