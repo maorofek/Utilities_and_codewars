@@ -2,27 +2,28 @@ import java.util.Arrays;
 
 public class FindTheSmallest {
 
-    public static void main(String[] args) {
-        System.out.println(Arrays.toString(smallest(261235))); //"[126235, 2, 0]");
+    public static void main(String[] args) { // {new number,old position,new position}
+//        System.out.println(Arrays.toString(smallest(261235))); //"[126235, 2, 0]");
         System.out.println(Arrays.toString(smallest(209917))); //"[29917, 0, 1]");
-        System.out.println(Arrays.toString(smallest(285365))); //"[238565, 3, 1]");
-        System.out.println(Arrays.toString(smallest(269045))); //"[26945, 3, 0]");
-        System.out.println(Arrays.toString(smallest(296837))); //"[239687, 4, 1]");
+//        System.out.println(Arrays.toString(smallest(285365))); //"[238565, 3, 1]");
+//        System.out.println(Arrays.toString(smallest(269045))); //"[26945, 3, 0]");
+//        System.out.println(Arrays.toString(smallest(296837))); //"[239687, 4, 1]");
 
 
     }
 
     public static long[] smallest(long n) {
         long smallestNumber = getSmallerNum(n);
-        int numLen = getLen(n);
         int smallestIndex = getSmallestIndex(n, smallestNumber);
-        long newNumber = removeTheDigitFromTheNumber(n, smallestNumber, smallestIndex);
-        long[] result = checkWhichOneIsTheSmaller(newNumber, smallestNumber, smallestIndex);
-        return result;
+        long newNumber = removeTheDigitFromTheNumber(n, smallestIndex);
+        return checkWhichOneIsTheSmaller(newNumber, smallestNumber, smallestIndex);
     }
 
     //TODO
     private static long[] checkWhichOneIsTheSmaller(long newNumber, long smallestNumber, int smallestIndex) {
+        if (smallestNumber == 0) {
+            return new long[]{newNumber, smallestIndex, 0};
+        }
         String tmpStr = Long.toString(newNumber);
         long tmpSmallestNumber = newNumber * 10 + smallestNumber;
         int newIndex = 0;
@@ -34,10 +35,10 @@ public class FindTheSmallest {
                 newIndex = tmpStr.length() - i;
             }
         }
-        return new long[]{tmpSmallestNumber, smallestIndex,newIndex};
+        return new long[]{tmpSmallestNumber, smallestIndex, newIndex};
     }
 
-    private static long removeTheDigitFromTheNumber(long n, long smallestNumber, int indexSmallest) {
+    private static long removeTheDigitFromTheNumber(long n, int indexSmallest) {
         String str = String.valueOf(n);
         StringBuilder tmp = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
