@@ -1,5 +1,6 @@
 public class findEvenIndex {
 
+    //TODO
     public static int findEvenIndex(int[] arr) {
         int index=0,sumL,sumR;
         while (index++ < arr.length - 1) {
