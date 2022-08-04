@@ -13,6 +13,7 @@ public class RotateSquareMatrixVortex {
                 new int[]{6, 4, 2, 2},
                 new int[]{3, 7, 8, 1},
                 new int[]{5, 5, 1, 3}};
+
         int[][] newTest = new int[][]{
                 new int[]{8, 4, 5, 4, 5, 5, 7, 4, 1, 4, 2, 7, 2},
                 new int[]{4, 4, 7, 3, 1, 6, 4, 1, 3, 7, 9, 6, 1},
