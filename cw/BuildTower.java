@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class BuildTower {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(towerBuilder(4)));//(",", " * ", "***")
+        System.out.println(Arrays.toString(towerBuilder(3)));//(",", " * ", "***")
 
 
     }
