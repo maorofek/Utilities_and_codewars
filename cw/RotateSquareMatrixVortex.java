@@ -63,7 +63,6 @@ public class RotateSquareMatrixVortex {
     }
 
     static int[][] cutInsideMatrix(int[][] arr, double size) {
-        // copy the matrix without the first and last row and column to another matrix  (size - 2) * (size - 2)
         int[][] insideMat = new int[(int) (size - 2)][(int) (size - 2)];
         for (int i = 1; i < arr.length - 1; i++) {
             for (int j = 1; j < arr.length - 1; j++) {
