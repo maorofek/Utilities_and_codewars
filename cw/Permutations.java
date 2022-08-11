@@ -14,9 +14,7 @@ public class Permutations {
         List<T> items = new ArrayList<>();
 
         // push each set element into the list
-        for (T e : set) {
-            items.add(e);
-        }
+        items.addAll(set);
 
         // return the list
         return items;
