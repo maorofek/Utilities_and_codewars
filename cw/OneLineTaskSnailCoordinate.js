@@ -17,6 +17,5 @@ let snail = function (arr) {
             result = result.concat(arr[i].splice(0, 1));
         }
     }
-
     return result;
 }
