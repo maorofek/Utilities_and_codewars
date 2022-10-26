@@ -2,6 +2,11 @@ import java.util.ArrayList;
 
 public class CanYouGetTheLoop {
 
+    public static void main(String[] args) {
+        System.out.println("eran shtok");
+
+    }
+
     public int loopSize(Node node) {
         ArrayList<Node> loopArr = new ArrayList<Node>();
         while (!loopArr.contains(node)) {
