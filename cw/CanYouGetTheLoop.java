@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class CanYouGetTheLoop {
 
     public static void main(String[] args) {
-        System.out.println("eran shtok");
 
     }
 
